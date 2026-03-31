@@ -128,3 +128,23 @@
     @apply font-sans;
   }
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    font-size: 11pt;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 1cm;
+  }
+  .print-card {
+    width: 100%;
+    max-width: 100%;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
