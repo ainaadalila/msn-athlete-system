@@ -248,14 +248,6 @@ export function MultiStepForm({ defaultValues, mode = "create" }: MultiStepFormP
           </div>
         )}
 
-        {/* Auto-save indicator */}
-        {draftSaved && (
-          <div className="flex items-center gap-1.5 text-xs text-gray-400">
-            <Save className="w-3 h-3" />
-            {t.common.draftSaved}
-          </div>
-        )}
-
         {/* Step indicator */}
         <div className="flex items-center gap-0">
           {steps.map((step, i) => (
@@ -333,6 +325,14 @@ export function MultiStepForm({ defaultValues, mode = "create" }: MultiStepFormP
             </Button>
           )}
         </div>
+
+        {/* Auto-save indicator */}
+        {draftSaved && (
+          <div className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
+            <Save className="w-3 h-3" />
+            {t.common.draftSaved}
+          </div>
+        )}
       </div>
     </FormProvider>
   );
