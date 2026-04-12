@@ -10,9 +10,7 @@ export const fullKejohananSchema = z.object({
     .string()
     .refine((d) => !isNaN(Date.parse(d)), "Tarikh tidak sah"),
   penerangan: z.string().optional().nullable(),
-  status: z
-    .enum(["AKAN DATANG", "SEDANG BERLANGSUNG", "SELESAI"])
-    .default("AKAN DATANG"),
+  status: z.enum(["AKAN DATANG", "SEDANG BERLANGSUNG", "SELESAI"]),
 });
 
 export type FullKejohananForm = z.infer<typeof fullKejohananSchema>;
