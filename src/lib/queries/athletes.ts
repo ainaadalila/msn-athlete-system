@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import type { FullAthleteForm } from "@/lib/validations/athlete.schema";
 import type { AthleteWithRelations } from "@/types/athlete";
 
@@ -31,7 +32,7 @@ export async function getAthletes(filters: AthleteFilters = {}) {
 export async function getAthleteById(
   id: string
 ): Promise<AthleteWithRelations | null> {
-  const supabase = await createClient();
+  const supabase = createAdminClient();
 
   const [athleteRes, achievementsRes, assessmentsRes] = await Promise.all([
     supabase.from("athletes").select("*").eq("id", id).single(),

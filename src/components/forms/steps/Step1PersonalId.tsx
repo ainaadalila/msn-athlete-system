@@ -55,6 +55,11 @@ export function Step1PersonalId({ pendingPhotoFile: _pendingPhotoFile, onPhotoCh
               id="nama_atlet"
               {...register("nama_atlet")}
               placeholder="Cth: AHMAD BIN ALI"
+              onChange={(e) =>
+                setValue("nama_atlet", e.target.value.toUpperCase(), {
+                  shouldValidate: true,
+                })
+              }
             />
             {errors.nama_atlet && (
               <p className="text-xs text-red-500">{errors.nama_atlet.message}</p>
@@ -68,6 +73,18 @@ export function Step1PersonalId({ pendingPhotoFile: _pendingPhotoFile, onPhotoCh
               id="no_kp"
               {...register("no_kp")}
               placeholder="000000-00-0000"
+              onChange={(e) => {
+                const val = e.target.value;
+                setValue("no_kp", val, { shouldValidate: true });
+                const digits = val.replace(/-/g, "");
+                if (digits.length >= 6) {
+                  const yy = parseInt(digits.slice(0, 2), 10);
+                  const mm = digits.slice(2, 4);
+                  const dd = digits.slice(4, 6);
+                  const year = yy <= new Date().getFullYear() % 100 ? 2000 + yy : 1900 + yy;
+                  setValue("tarikh_lahir", `${year}-${mm}-${dd}`, { shouldValidate: false });
+                }
+              }}
             />
             {errors.no_kp && (
               <p className="text-xs text-red-500">{errors.no_kp.message}</p>
@@ -85,7 +102,7 @@ export function Step1PersonalId({ pendingPhotoFile: _pendingPhotoFile, onPhotoCh
           <div className="space-y-1.5">
             <Label>{t.athlete.acara} *</Label>
             <Select
-              defaultValue={watch("acara")}
+              value={watch("acara") ?? ""}
               onValueChange={(v) =>
                 setValue("acara", v as FullAthleteForm["acara"], {
                   shouldValidate: true,

@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, UserPlus } from "lucide-react";
+import { LayoutDashboard, UserPlus, Tent, Trophy } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/dashboard", icon: LayoutDashboard, key: "dashboard" as const },
   { href: "/athletes/new", icon: UserPlus, key: "newAthlete" as const },
+  { href: "/training-camps", icon: Tent, key: "trainingCamps" as const },
+  { href: "/kejohanan", icon: Trophy, key: "kejohanan" as const },
 ];
 
 export function Sidebar() {

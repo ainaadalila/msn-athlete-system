@@ -29,7 +29,7 @@ export function Step2PersonalData() {
       <div className="space-y-1.5">
         <Label>{t.athlete.negeri} *</Label>
         <Select
-          defaultValue={(watch("negeri") ?? "") as string}
+          value={(watch("negeri") ?? "") as string}
           onValueChange={(v) =>
             setValue("negeri", v ?? "", { shouldValidate: true })
           }
