@@ -10,7 +10,7 @@ export const fullCampSchema = z.object({
     .string()
     .refine((d) => !isNaN(Date.parse(d)), "Tarikh tidak sah"),
   penerangan: z.string().optional().nullable(),
-  status: z.enum(["AKTIF", "SELESAI", "DIBATALKAN"]).default("AKTIF"),
+  status: z.enum(["AKTIF", "SELESAI", "DIBATALKAN"]),
 });
 
 export type FullCampForm = z.infer<typeof fullCampSchema>;
