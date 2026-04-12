@@ -33,7 +33,8 @@ export default async function EditAthletePage({ params }: EditPageProps) {
     achievements: athlete.achievements.map((a) => ({
       urutan: a.urutan,
       kejohanan: a.kejohanan,
-      tarikh: a.tarikh ?? null,
+      tarikh_mula: a.tarikh_mula ?? null,
+      tarikh_tamat: a.tarikh_tamat ?? null,
       acara: a.acara ?? null,
       catatan: a.catatan ?? null,
     })),
