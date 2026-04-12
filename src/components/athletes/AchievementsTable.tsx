@@ -16,10 +16,16 @@ interface AchievementsTableProps {
   achievements: Achievement[];
 }
 
+function formatDateRange(mula: string | null, tamat: string | null): string {
+  const fmt = (d: string) => format(new Date(d), "dd/MM/yyyy");
+  if (mula && tamat) return `${fmt(mula)} – ${fmt(tamat)}`;
+  if (mula) return fmt(mula);
+  if (tamat) return fmt(tamat);
+  return "";
+}
+
 export function AchievementsTable({ achievements }: AchievementsTableProps) {
   const { t } = useLanguage();
-
-  const rows = Array.from({ length: 7 }, (_, i) => achievements[i] ?? null);
 
   return (
     <div>
@@ -33,8 +39,8 @@ export function AchievementsTable({ achievements }: AchievementsTableProps) {
               <TableHead className="text-white text-xs font-semibold">
                 {t.achievements.kejohanan}
               </TableHead>
-              <TableHead className="text-white text-xs font-semibold w-28">
-                {t.achievements.tarikh}
+              <TableHead className="text-white text-xs font-semibold w-44">
+                {t.achievements.tarikhMula} – {t.achievements.tarikhTamat}
               </TableHead>
               <TableHead className="text-white text-xs font-semibold w-36">
                 {t.achievements.acara}
@@ -45,16 +51,24 @@ export function AchievementsTable({ achievements }: AchievementsTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((row, i) => (
-              <TableRow key={i} className="text-sm">
-                <TableCell>{row?.kejohanan ?? ""}</TableCell>
-                <TableCell className="text-gray-500">
-                  {row?.tarikh ? format(new Date(row.tarikh), "dd/MM/yyyy") : ""}
+            {achievements.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={4} className="text-center text-gray-400 py-6">
+                  {t.achievements.noAchievements}
                 </TableCell>
-                <TableCell className="text-gray-500">{row?.acara ?? ""}</TableCell>
-                <TableCell className="text-gray-500">{row?.catatan ?? ""}</TableCell>
               </TableRow>
-            ))}
+            ) : (
+              achievements.map((row, i) => (
+                <TableRow key={i} className="text-sm">
+                  <TableCell>{row.kejohanan}</TableCell>
+                  <TableCell className="text-gray-500">
+                    {formatDateRange(row.tarikh_mula, row.tarikh_tamat)}
+                  </TableCell>
+                  <TableCell className="text-gray-500">{row.acara ?? ""}</TableCell>
+                  <TableCell className="text-gray-500">{row.catatan ?? ""}</TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>

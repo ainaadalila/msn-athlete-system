@@ -48,7 +48,8 @@ export interface Achievement {
   athlete_id: string;
   urutan: number;
   kejohanan: string;
-  tarikh: string | null;
+  tarikh_mula: string | null;
+  tarikh_tamat: string | null;
   acara: string | null;
   catatan: string | null;
 }
