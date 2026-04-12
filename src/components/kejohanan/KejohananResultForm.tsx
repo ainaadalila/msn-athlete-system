@@ -89,7 +89,7 @@ export function KejohananResultForm({
               id="placement"
               type="number"
               min={1}
-              {...register("placement")}
+              {...register("placement", { valueAsNumber: true })}
               placeholder="Cth: 1"
             />
           </div>

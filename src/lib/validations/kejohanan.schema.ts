@@ -23,7 +23,7 @@ export type SquadBatchForm = z.infer<typeof squadBatchSchema>;
 
 export const kejohananResultSchema = z.object({
   athlete_id: z.string().uuid(),
-  placement: z.coerce.number().int().positive().optional().nullable(),
+  placement: z.number().int().positive().optional().nullable(),
   skor: z.string().optional().nullable(),
   pingat: z.enum(["EMAS", "PERAK", "GANGSA", "TIADA"]).optional().nullable(),
 });
