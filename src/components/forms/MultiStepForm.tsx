@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,9 @@ import { Step3Achievements } from "./steps/Step3Achievements";
 import { Step4Assessments } from "./steps/Step4Assessments";
 import { Step5Review } from "./steps/Step5Review";
 import { useLanguage } from "@/context/LanguageContext";
+import { Save } from "lucide-react";
+
+const DRAFT_KEY = "msn-athlete-draft";
 import {
   fullAthleteSchema,
   step1Schema,
@@ -37,6 +40,9 @@ export function MultiStepForm({ defaultValues, mode = "create" }: MultiStepFormP
   const [currentStep, setCurrentStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
   const [pendingPhotoFile, setPendingPhotoFile] = useState<File | null>(null);
+  const [draftSaved, setDraftSaved] = useState(false);
+  const [hasDraft, setHasDraft] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const steps = [
     t.steps.step1,
@@ -57,6 +63,40 @@ export function MultiStepForm({ defaultValues, mode = "create" }: MultiStepFormP
     },
     mode: "onBlur",
   });
+
+  // Restore draft on mount (create mode only)
+  useEffect(() => {
+    if (mode !== "create") return;
+    try {
+      const saved = localStorage.getItem(DRAFT_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        methods.reset({ ...methods.getValues(), ...parsed });
+        setHasDraft(true);
+      }
+    } catch {
+      // ignore malformed draft
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Auto-save on change (create mode only)
+  useEffect(() => {
+    if (mode !== "create") return;
+    const subscription = methods.watch((values) => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+      debounceRef.current = setTimeout(() => {
+        try {
+          localStorage.setItem(DRAFT_KEY, JSON.stringify(values));
+          setDraftSaved(true);
+          setTimeout(() => setDraftSaved(false), 2000);
+        } catch {
+          // ignore storage errors
+        }
+      }, 800);
+    });
+    return () => subscription.unsubscribe();
+  }, [methods, mode]);
 
   async function validateStep() {
     const schema = STEP_SCHEMAS[currentStep];
@@ -122,6 +162,7 @@ export function MultiStepForm({ defaultValues, mode = "create" }: MultiStepFormP
           );
         }
 
+        localStorage.removeItem(DRAFT_KEY);
         toast.success("Profil atlet berjaya didaftarkan!");
         router.push(`/athletes/${athlete.id}`);
       } else {
@@ -185,6 +226,36 @@ export function MultiStepForm({ defaultValues, mode = "create" }: MultiStepFormP
   return (
     <FormProvider {...methods}>
       <div className="max-w-3xl mx-auto space-y-6">
+        {/* Draft banner */}
+        {hasDraft && (
+          <div className="flex items-center justify-between rounded-lg bg-amber-50 border border-amber-200 px-4 py-2 text-sm text-amber-800">
+            <span>{t.common.draftRestored}</span>
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.removeItem(DRAFT_KEY);
+                methods.reset({
+                  sukan: "MEMANAH",
+                  achievements: [],
+                  assessments: [],
+                });
+                setHasDraft(false);
+              }}
+              className="ml-4 underline text-amber-700 hover:text-amber-900"
+            >
+              {t.common.clearDraft}
+            </button>
+          </div>
+        )}
+
+        {/* Auto-save indicator */}
+        {draftSaved && (
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+            <Save className="w-3 h-3" />
+            {t.common.draftSaved}
+          </div>
+        )}
+
         {/* Step indicator */}
         <div className="flex items-center gap-0">
           {steps.map((step, i) => (

@@ -28,7 +28,7 @@ export function Step4Assessments() {
   return (
     <div className="space-y-4">
       <p className="text-sm text-gray-500">
-        Rekodkan sehingga 5 ujian / Record up to 5 tests
+        {t.assessments.subtitle}
       </p>
 
       {fields.length === 0 && (

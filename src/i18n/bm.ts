@@ -26,6 +26,9 @@ export const bm = {
     confirmDelete: "Sahkan Padam",
     confirmDeleteMsg: "Adakah anda pasti ingin memadam profil atlet ini? Tindakan ini tidak boleh diundur.",
     yes: "Ya, Padam",
+    draftSaved: "Draf disimpan",
+    draftRestored: "Draf dijumpai — maklumat sebelum ini telah dipulihkan.",
+    clearDraft: "Kosongkan",
   },
   athlete: {
     title: "PROFIL ATLET BAKAT OLIMPIK",
@@ -50,9 +53,11 @@ export const bm = {
   },
   achievements: {
     title: "Pencapaian",
+    subtitle: "Rekodkan kejohanan yang disertai oleh atlet.",
     year: "Tahun",
     kejohanan: "Kejohanan",
-    tarikh: "Tarikh",
+    tarikhMula: "Tarikh Mula",
+    tarikhTamat: "Tarikh Tamat",
     acara: "Acara",
     catatan: "Catatan",
     addAchievement: "Tambah Kejohanan",
@@ -60,6 +65,7 @@ export const bm = {
   },
   assessments: {
     title: "Ujian & Penilaian",
+    subtitle: "Rekodkan ujian kecergasan atlet.",
     no: "No.",
     jenisUjian: "Jenis Ujian",
     keputusan: "Keputusan",
@@ -78,9 +84,10 @@ export const bm = {
     step3: "Pencapaian",
     step4: "Ujian & Penilaian",
     step5: "Ulasan & Semak",
+    summaryTitle: "Ringkasan Maklumat",
   },
   dashboard: {
-    title: "Senarai Atlet",
+    title: "Papan Pemuka",
     totalAthletes: "Jumlah Atlet",
     searchPlaceholder: "Cari nama atlet...",
     filterNegeri: "Tapis Negeri",

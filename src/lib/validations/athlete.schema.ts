@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const step1Schema = z.object({
-  nama_atlet: z.string().min(2, "Nama diperlukan / Name required"),
+  nama_atlet: z.string().min(2, "Nama diperlukan"),
   no_kp: z
     .string()
     .regex(/^\d{6}-\d{2}-\d{4}$/, "Format: XXXXXX-XX-XXXX"),
@@ -16,10 +16,10 @@ export const step1Schema = z.object({
 });
 
 export const step2Schema = z.object({
-  negeri: z.string().min(1, "Sila pilih negeri / Please select state"),
+  negeri: z.string().min(1, "Sila pilih negeri"),
   tarikh_lahir: z
     .string()
-    .refine((d) => !isNaN(Date.parse(d)), "Tarikh tidak sah / Invalid date"),
+    .refine((d) => !isNaN(Date.parse(d)), "Tarikh tidak sah"),
   berat_badan: z.coerce
     .number()
     .positive()
@@ -33,15 +33,16 @@ export const step2Schema = z.object({
 });
 
 export const achievementRowSchema = z.object({
-  urutan: z.number().min(1).max(7),
+  urutan: z.number().min(1),
   kejohanan: z.string().min(1, "Nama kejohanan diperlukan"),
-  tarikh: z.string().optional().nullable(),
+  tarikh_mula: z.string().optional().nullable(),
+  tarikh_tamat: z.string().optional().nullable(),
   acara: z.string().optional().nullable(),
   catatan: z.string().optional().nullable(),
 });
 
 export const step3Schema = z.object({
-  achievements: z.array(achievementRowSchema).max(7),
+  achievements: z.array(achievementRowSchema),
 });
 
 export const assessmentRowSchema = z.object({

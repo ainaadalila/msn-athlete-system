@@ -36,7 +36,7 @@ export function Step5Review() {
       {/* Summary */}
       <div className="bg-gray-50 rounded-lg p-4 space-y-2">
         <h3 className="text-sm font-semibold text-gray-700 mb-3">
-          Ringkasan Maklumat / Summary
+          {t.steps.summaryTitle}
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
           {summaryRows.map(({ label, value }) => (

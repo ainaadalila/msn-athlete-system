@@ -18,9 +18,7 @@ export function Step3Achievements() {
 
   return (
     <div className="space-y-4">
-      <p className="text-sm text-gray-500">
-        Rekodkan sehingga 7 kejohanan / Record up to 7 tournaments
-      </p>
+      <p className="text-sm text-gray-500">{t.achievements.subtitle}</p>
 
       {fields.length === 0 && (
         <div className="text-center py-8 text-gray-400 border-2 border-dashed rounded-lg">
@@ -42,9 +40,17 @@ export function Step3Achievements() {
             />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs">{t.achievements.tarikh}</Label>
+            <Label className="text-xs">{t.achievements.tarikhMula}</Label>
             <Input
-              {...register(`achievements.${index}.tarikh`)}
+              {...register(`achievements.${index}.tarikh_mula`)}
+              type="date"
+              className="bg-white"
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs">{t.achievements.tarikhTamat}</Label>
+            <Input
+              {...register(`achievements.${index}.tarikh_tamat`)}
               type="date"
               className="bg-white"
             />
@@ -57,7 +63,7 @@ export function Step3Achievements() {
               className="bg-white"
             />
           </div>
-          <div className="sm:col-span-3 space-y-1.5">
+          <div className="sm:col-span-2 space-y-1.5">
             <Label className="text-xs">{t.achievements.catatan}</Label>
             <Input
               {...register(`achievements.${index}.catatan`)}
@@ -65,7 +71,7 @@ export function Step3Achievements() {
               className="bg-white"
             />
           </div>
-          <div className="flex items-end">
+          <div className="flex items-end sm:justify-end">
             <Button
               type="button"
               variant="ghost"
@@ -84,25 +90,24 @@ export function Step3Achievements() {
         </div>
       ))}
 
-      {fields.length < 7 && (
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() =>
-            append({
-              urutan: fields.length + 1,
-              kejohanan: "",
-              tarikh: null,
-              acara: null,
-              catatan: null,
-            })
-          }
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          {t.achievements.addAchievement}
-        </Button>
-      )}
+      <Button
+        type="button"
+        variant="outline"
+        size="sm"
+        onClick={() =>
+          append({
+            urutan: fields.length + 1,
+            kejohanan: "",
+            tarikh_mula: null,
+            tarikh_tamat: null,
+            acara: null,
+            catatan: null,
+          })
+        }
+      >
+        <Plus className="w-4 h-4 mr-2" />
+        {t.achievements.addAchievement}
+      </Button>
     </div>
   );
 }

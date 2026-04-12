@@ -28,6 +28,9 @@ export const en: LangDict = {
     confirmDelete: "Confirm Delete",
     confirmDeleteMsg: "Are you sure you want to delete this athlete profile? This action cannot be undone.",
     yes: "Yes, Delete",
+    draftSaved: "Draft saved",
+    draftRestored: "Draft found — your previous progress has been restored.",
+    clearDraft: "Clear",
   },
   athlete: {
     title: "OLYMPIC TALENT ATHLETE PROFILE",
@@ -52,9 +55,11 @@ export const en: LangDict = {
   },
   achievements: {
     title: "Achievements",
+    subtitle: "Record tournaments participated by the athlete.",
     year: "Year",
     kejohanan: "Tournament",
-    tarikh: "Date",
+    tarikhMula: "Start Date",
+    tarikhTamat: "End Date",
     acara: "Event",
     catatan: "Notes",
     addAchievement: "Add Tournament",
@@ -62,6 +67,7 @@ export const en: LangDict = {
   },
   assessments: {
     title: "Tests & Assessments",
+    subtitle: "Record athlete fitness tests.",
     no: "No.",
     jenisUjian: "Test Type",
     keputusan: "Result",
@@ -80,9 +86,10 @@ export const en: LangDict = {
     step3: "Achievements",
     step4: "Tests & Assessments",
     step5: "Review & Submit",
+    summaryTitle: "Information Summary",
   },
   dashboard: {
-    title: "Athlete List",
+    title: "Dashboard",
     totalAthletes: "Total Athletes",
     registerNew: "Register New Athlete",
     searchPlaceholder: "Search athlete name...",
